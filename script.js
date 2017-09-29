@@ -51,3 +51,32 @@ function initMap() {
 		})(marker, i));
 	}
 }
+
+function tempoAtendimento() {
+	
+	var tempoAtendimentoRecepcao = getNumeroRandomico();
+	var tempoAtendimentoTriagem = getNumeroRandomico();
+	var tempoAtendimentoConsulta = getNumeroRandomico();
+	
+	var qtdPessoasRecepcao = getNumeroRandomico();
+	var qtdPessoasTriagem = getNumeroRandomico();
+	var qtdPessoasConsulta = getNumeroRandomico();
+	
+	// Tempo para todas as pessoas na recepção serem atendidas
+	var esperaRecepcao = tempoAtendimentoRecepcao * qtdPessoasRecepcao;
+	
+	// Tempo para todas as pessoas na triagem serem atendidas menos o tempo que já esperei na recepção
+	var esperaTriagem = (tempoAtendimentoTriagem * qtdPessoasTriagem) - esperaRecepcao;
+	
+	// Tempo para todas as pessoas na consulta serem atendidas menos o tempo que já esperei na triagem
+	var esperaConsulta = (tempoAtendimentoConsulta * qtdPessoasConsulta) - esperaTriagem;
+	
+	return esperaConsulta;
+	
+}
+
+function getNumeroRandomico() {
+	
+	return (Math.floor(Math.random() * 10)) + 1;
+
+}

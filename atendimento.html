@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="bootstrap-4.0.0-alpha.6/docs/favicon.ico">
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Atendimento de Emergência Unimed</title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap-4.0.0-alpha.6/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -16,6 +16,8 @@
     <link href="dashboard.css" rel="stylesheet">
 	
 	<link href="style.css" rel="stylesheet">
+	
+	<script src="script.js"></script>
   </head>
 
   <body>
@@ -23,7 +25,7 @@
       <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#">Você está em: Caxias do Sul</a>
+      <a class="navbar-brand" href="#">Atendimento de Emergência Unimed - Você está em: Caxias do Sul</a>
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <form class="form-inline mt-2 mt-md-0">
@@ -39,10 +41,10 @@
         <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link " href="#">Plantões Disponíveis </a>
+              <a class="nav-link " href="index.html">Próximos a mim</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="#">Atendimento <span class="sr-only">(current)</span></a>
+              <a class="nav-link active" href="atendimento.html">Atendimento <span class="sr-only">(current)</span></a>
             </li>
             
           </ul>
@@ -66,8 +68,11 @@
             <div class="timeline-panel">
                 <div class="timeline-heading">
                     
-					<h6 class="timeline-title">Recepção: 2 minutos </h6>
-                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 2 pacientes na espera</small>
+					<h6 class="timeline-title">Espera para Recepção: 
+					<input type="text" name="tempoRecepcao" id="tempoRecepcao" style="width: 30px"> minutos </h6>
+                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 
+					<input type="text" name="qtdPessoasRecepcao" id="qtdPessoasRecepcao" style="width: 30px">
+					pacientes na espera</small>
                     </p>
                 </div>
                 <!--<div class="timeline-body">
@@ -81,8 +86,11 @@
             <div class="timeline-panel">
                 <div class="timeline-heading">
                     
-				<h6 class="timeline-title">Triagem: 5 minutos</h6>
-				<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 3 pacientes na espera</small></p>
+				<h6 class="timeline-title">Triagem: 
+				<input type="text" name="tempoTriagem" id="tempoTriagem" style="width: 30px"> minutos</h6>
+				<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 
+				<input type="text" name="qtdPessoasTriagem" id="qtdPessoasTriagem" style="width: 30px">				
+				pacientes na espera</small></p>
 
                 </div>
                 
@@ -94,14 +102,18 @@
             <div class="timeline-panel">
                 <div class="timeline-heading">
                     
-				<h6 class="timeline-title">Consulta: 10 minutos</h6>
-				<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 5 pacientes na espera</small></p>
+				<h6 class="timeline-title">Consulta: 
+				<input type="text" name="tempoConsulta" id="tempoConsulta" style="width: 30px">				
+				minutos</h6>
+				<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 
+				<input type="text" name="qtdPessoasConsulta" id="qtdPessoasConsulta" style="width: 30px">						
+				pacientes na espera</small></p>
                 </div>
                 
             </div>
         </li>
        
-    </ul>
+    </ul>	
 </div>
         </section>
           
