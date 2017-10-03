@@ -33,7 +33,7 @@ function initMap() {
 
 	var map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 13,
-		center: new google.maps.LatLng(-29.163403, -51.179668),
+		center: new google.maps.LatLng(-29.164730, -51.200866),
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	});
 
@@ -118,9 +118,14 @@ function preencheTela() {
 	
 	var tempoTotal = (esperaRecepcao + esperaTriagem + esperaConsulta);
 	
-	document.getElementById('qtdPessoasRecepcao').innerHTML = qtdPessoasRecepcao + " pacientes na espera";
-	document.getElementById('qtdPessoasTriagem').innerHTML = qtdPessoasTriagem + " pacientes na espera";
-	document.getElementById('qtdPessoasConsulta').innerHTML = qtdPessoasConsulta + " pacientes na espera";
+	divQtdPessoasRecepcao = document.getElementById("qtdPessoasRecepcao");
+    divQtdPessoasRecepcao.innerHTML += qtdPessoasRecepcao + " pacientes na espera";
+	
+	divQtdPessoasTriagem = document.getElementById('qtdPessoasTriagem');	
+	divQtdPessoasTriagem.innerHTML += qtdPessoasTriagem + " pacientes na espera";
+	
+	divQtdPessoasConsulta = document.getElementById('qtdPessoasConsulta');	
+	divQtdPessoasConsulta.innerHTML += qtdPessoasConsulta + " pacientes na espera";
 	
 	document.getElementById('tempoRecepcao').innerHTML = "Recepção: " + esperaRecepcao + " minutos";
 	document.getElementById('tempoTriagem').innerHTML = "Triagem: " + esperaTriagem + " minutos";
