@@ -1,22 +1,26 @@
+var tempoAtendimentoRecepcao = 1;
+var tempoAtendimentoTriagem = 2;
+var tempoAtendimentoConsulta = 5;
+	
 function initMap() {
 
 	var hospitalUnimed = {
 		info: '<strong>Hospital Unimed</strong><br>\
-			   Tempo de espera: 15 minutos',
+			   Tempo de espera: ' + getEsperaTotal() + ' minutos',
 		lat: -29.164730,
 		long: -51.200866
 	};
 
 	var hospitalCirculo = {
 		info: '<strong>Hospital do Círculo</strong> <br> \
-		       Tempo de espera: 10 minutos',
+		       Tempo de espera: ' + getEsperaTotal() + ' minutos',
 		lat: -29.153545,
 		long: -51.173444
 	};
 
 	var hospitalSaude = {
 		info: '<strong>Hospital Saúde</strong> <br> \
-			   Tempo de espera: 20 minutos',
+			   Tempo de espera: ' + getEsperaTotal() + ' minutos',
 		lat: -29.164720,
 		long: -51.183480
 	};
@@ -54,29 +58,119 @@ function initMap() {
 
 function tempoAtendimento() {
 	
-	var tempoAtendimentoRecepcao = getNumeroRandomico();
-	var tempoAtendimentoTriagem = getNumeroRandomico();
-	var tempoAtendimentoConsulta = getNumeroRandomico();
-	
 	var qtdPessoasRecepcao = getNumeroRandomico();
 	var qtdPessoasTriagem = getNumeroRandomico();
 	var qtdPessoasConsulta = getNumeroRandomico();
 	
+	alert("1 qtdPessoasRecepcao " + qtdPessoasRecepcao);
+	
+	setCookie("qtdPessoasRecepcao", qtdPessoasRecepcao);
+	setCookie("qtdPessoasTriagem", qtdPessoasTriagem);
+	setCookie("qtdPessoasConsulta", qtdPessoasConsulta);
+	
 	// Tempo para todas as pessoas na recepção serem atendidas
-	var esperaRecepcao = tempoAtendimentoRecepcao * qtdPessoasRecepcao;
+	var esperaRecepcao = getEsperaRecepcao(qtdPessoasRecepcao);
 	
 	// Tempo para todas as pessoas na triagem serem atendidas menos o tempo que já esperei na recepção
-	var esperaTriagem = (tempoAtendimentoTriagem * qtdPessoasTriagem) - esperaRecepcao;
+	var esperaTriagem = getEsperaTriagem(qtdPessoasTriagem, esperaRecepcao);
 	
 	// Tempo para todas as pessoas na consulta serem atendidas menos o tempo que já esperei na triagem
-	var esperaConsulta = (tempoAtendimentoConsulta * qtdPessoasConsulta) - esperaTriagem;
+	var esperaConsulta = getEsperaConsulta(qtdPessoasConsulta, esperaTriagem);	
 	
-	return esperaConsulta;
+	var tempoTotal = (esperaRecepcao + esperaTriagem + esperaConsulta);
+	
+	setCookie("esperaRecepcao", esperaRecepcao);
+	setCookie("esperaTriagem", esperaTriagem);
+	setCookie("esperaConsulta", esperaConsulta);
+	setCookie("tempoTotal", tempoTotal);
 	
 }
 
-function getNumeroRandomico() {
+function getEsperaRecepcao(qtdPessoasRecepcao) {
 	
-	return (Math.floor(Math.random() * 10)) + 1;
+	var esperaRecepcao = tempoAtendimentoRecepcao * qtdPessoasRecepcao;
+	if(esperaRecepcao < 0) esperaRecepcao = 0;
+	
+	return esperaRecepcao;
+	
+}
 
+function getEsperaTriagem(qtdPessoasTriagem, esperaRecepcao) {
+	var esperaTriagem = (tempoAtendimentoTriagem * qtdPessoasTriagem) - esperaRecepcao;
+	if(esperaTriagem < 0) esperaTriagem = 0;
+	
+	return esperaTriagem;
+}
+
+function getEsperaConsulta(qtdPessoasConsulta, esperaTriagem) {
+	
+	var esperaConsulta = (tempoAtendimentoConsulta * qtdPessoasConsulta) - esperaTriagem;
+	if(esperaConsulta < 0) esperaConsulta = 0;	
+	
+	return esperaConsulta;
+}
+
+function getEsperaTotal() {
+	var tempoTotal = getCookie("tempoTotal");
+	
+	if(tempoTotal == "") {
+		tempoAtendimento();
+		tempoTotal = getCookie("tempoTotal");
+	}
+	
+	return tempoTotal;
+}
+
+function preencheTela() {
+	tempoAtendimento();
+	
+	alert('preenche');
+	
+	var qtdPessoasRecepcao = getCookie("qtdPessoasRecepcao");
+	var qtdPessoasTriagem = getCookie("qtdPessoasTriagem");
+	var qtdPessoasConsulta = getCookie("qtdPessoasConsulta");
+	
+	alert('qtdPessoasRecepcao ' + qtdPessoasRecepcao);
+	alert('qtdPessoasTriagem ' + qtdPessoasTriagem);
+	alert('qtdPessoasConsulta ' + qtdPessoasConsulta);
+	
+	var qtdPessoasRecepcao = getCookie("qtdPessoasRecepcao");
+	var qtdPessoasRecepcao = getCookie("qtdPessoasRecepcao");
+	var qtdPessoasRecepcao = getCookie("qtdPessoasRecepcao");
+	
+	document.getElementById('esperaRecepcao').innerHTML = esperaRecepcao + " pacientes na espera";
+	document.getElementById('esperaTriagem').innerHTML = esperaTriagem + " pacientes na espera";
+	document.getElementById('esperaConsulta').innerHTML = esperaConsulta + " pacientes na espera";
+	
+	document.getElementById('tempoRecepcao').innerHTML = "Recepção: " + esperaRecepcao + " minutos";
+	document.getElementById('tempoTriagem').innerHTML = "Triagem: " + esperaTriagem + " minutos";
+	document.getElementById('tempoConsulta').innerHTML = "Consulta: " + esperaConsulta + " minutos";
+	
+
+	document.getElementById('tempoTotal').innerHTML = "Tempo Total para o seu Atendimento: " + tempoTotal + " minutos";
+}
+
+function getNumeroRandomico() {	
+	return (Math.floor(Math.random() * 10)) + 1;
+}
+
+function setCookie(cname, cvalue) {	
+	if(getCookie(cname) == "") {
+		document.cookie = cname + "=" + cvalue + ";";
+	}	
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }

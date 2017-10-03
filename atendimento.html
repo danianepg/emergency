@@ -68,11 +68,10 @@
             <div class="timeline-panel">
                 <div class="timeline-heading">
                     
-					<h6 class="timeline-title">Espera para Recepção: 
-					<input type="text" name="tempoRecepcao" id="tempoRecepcao" style="width: 30px"> minutos </h6>
-                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 
-					<input type="text" name="qtdPessoasRecepcao" id="qtdPessoasRecepcao" style="width: 30px">
-					pacientes na espera</small>
+					<h6 class="timeline-title" id="tempoRecepcao">Recepção: </h6>
+					
+                    <p><small class="text-muted" id="qtdPessoasRecepcao"><i class="glyphicon glyphicon-time"></i> 
+					</small>
                     </p>
                 </div>
                 <!--<div class="timeline-body">
@@ -86,13 +85,10 @@
             <div class="timeline-panel">
                 <div class="timeline-heading">
                     
-				<h6 class="timeline-title">Triagem: 
-				<input type="text" name="tempoTriagem" id="tempoTriagem" style="width: 30px"> minutos</h6>
-				<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 
-				<input type="text" name="qtdPessoasTriagem" id="qtdPessoasTriagem" style="width: 30px">				
-				pacientes na espera</small></p>
-
-                </div>
+				<h6 class="timeline-title" id="tempoTriagem">Triagem: </h6>
+				<p><small class="text-muted"  id="qtdPessoasTriagem"><i class="glyphicon glyphicon-time"></i></small>
+				</p>
+				</div>
                 
             </div>
         </li>
@@ -102,12 +98,21 @@
             <div class="timeline-panel">
                 <div class="timeline-heading">
                     
-				<h6 class="timeline-title">Consulta: 
-				<input type="text" name="tempoConsulta" id="tempoConsulta" style="width: 30px">				
-				minutos</h6>
-				<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 
-				<input type="text" name="qtdPessoasConsulta" id="qtdPessoasConsulta" style="width: 30px">						
-				pacientes na espera</small></p>
+				<h6 class="timeline-title" id="tempoConsulta">Consulta:  </h6>
+				<p><small class="text-muted"id="qtdPessoasConsulta"><i class="glyphicon glyphicon-time"></i> 
+				</small></p>
+                </div>
+                
+            </div>
+        </li>
+		<li class="timeline-inverted">
+            <div class="timeline-badge success"><i class="glyphicon glyphicon-credit-card"></i>
+            </div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    
+				<h6 class="timeline-title" id="tempoTotal" >Tempo Total para Atendimento: </h6>
+				
                 </div>
                 
             </div>
@@ -131,6 +136,8 @@
     <script src="bootstrap-4.0.0-alpha.6/dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="bootstrap-4.0.0-alpha.6/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+	
+	 <script>preencheTela();</script>
 		
   </body>
 </html>
