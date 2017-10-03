@@ -1,8 +1,0 @@
-{
-	"name": "Emergency",
-	"version": "1.0.0",
-	"description": "Find Emergency Rooms",
-	"dependencies": {
-		"harp": "*"
-	}
- }
