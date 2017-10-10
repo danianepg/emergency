@@ -1,26 +1,40 @@
 var tempoAtendimentoRecepcao = 1;
 var tempoAtendimentoTriagem = 2;
 var tempoAtendimentoConsulta = 5;
-	
-function initMap() {
 
+function iniArrayAtend() {
+	
+	var arrTempo = new Array();
+	
+	for(var i = 0; i < 3; i++) {
+		arrTempo[i] = tempoAtendimento();
+	}
+	
+	return arrTempo;
+	
+}
+
+function initMap() {
+	
+	var arrTempo = iniArrayAtend();
+	
 	var hospitalUnimed = {
 		info: '<strong>Hospital Unimed</strong><br>\
-			   Tempo de espera: ' + tempoAtendimento() + ' minutos',
+			   Tempo de espera: ' + arrTempo[0] + ' minutos',
 		lat: -29.164730,
 		long: -51.200866
 	};
 
 	var hospitalCirculo = {
-		info: '<strong>Hospital do Círculo</strong> <br> \
-		       Tempo de espera: ' + tempoAtendimento() + ' minutos',
-		lat: -29.153545,
-		long: -51.173444
+		info: '<strong>Hospital Pompéia</strong> <br> \
+		       Tempo de espera: ' + arrTempo[1] + ' minutos',
+		lat: -29.167593,
+		long: -51.183570
 	};
 
 	var hospitalSaude = {
 		info: '<strong>Hospital Saúde</strong> <br> \
-			   Tempo de espera: ' + tempoAtendimento() + ' minutos',
+			   Tempo de espera: ' + arrTempo[2] + ' minutos',
 		lat: -29.164720,
 		long: -51.183480
 	};
@@ -104,34 +118,38 @@ function getEsperaConsulta(qtdPessoasConsulta, esperaTriagem) {
 }
 
 function preencheTela() {
-	var qtdPessoasRecepcao = getNumeroRandomico();
-	var qtdPessoasTriagem = getNumeroRandomico();
-	var qtdPessoasConsulta = getNumeroRandomico()
 	
-	var esperaRecepcao = getEsperaRecepcao(qtdPessoasRecepcao);
-	
-	// Tempo para todas as pessoas na triagem serem atendidas menos o tempo que já esperei na recepção
-	var esperaTriagem = getEsperaTriagem(qtdPessoasTriagem, esperaRecepcao);
-	
-	// Tempo para todas as pessoas na consulta serem atendidas menos o tempo que já esperei na triagem
-	var esperaConsulta = getEsperaConsulta(qtdPessoasConsulta, esperaTriagem);	
-	
-	var tempoTotal = (esperaRecepcao + esperaTriagem + esperaConsulta);
-	
-	divQtdPessoasRecepcao = document.getElementById("qtdPessoasRecepcao");
-    divQtdPessoasRecepcao.innerHTML += qtdPessoasRecepcao + " pacientes na espera";
-	
-	divQtdPessoasTriagem = document.getElementById('qtdPessoasTriagem');	
-	divQtdPessoasTriagem.innerHTML += qtdPessoasTriagem + " pacientes na espera";
-	
-	divQtdPessoasConsulta = document.getElementById('qtdPessoasConsulta');	
-	divQtdPessoasConsulta.innerHTML += qtdPessoasConsulta + " pacientes na espera";
-	
-	document.getElementById('tempoRecepcao').innerHTML = "Recepção: " + esperaRecepcao + " minutos";
-	document.getElementById('tempoTriagem').innerHTML = "Triagem: " + esperaTriagem + " minutos";
-	document.getElementById('tempoConsulta').innerHTML = "Consulta: " + esperaConsulta + " minutos";
+	for(var i = 0; i < 3; i ++) {
+		var qtdPessoasRecepcao = getNumeroRandomico();
+		var qtdPessoasTriagem = getNumeroRandomico();
+		var qtdPessoasConsulta = getNumeroRandomico()
+		
+		var esperaRecepcao = getEsperaRecepcao(qtdPessoasRecepcao);
+		
+		// Tempo para todas as pessoas na triagem serem atendidas menos o tempo que já esperei na recepção
+		var esperaTriagem = getEsperaTriagem(qtdPessoasTriagem, esperaRecepcao);
+		
+		// Tempo para todas as pessoas na consulta serem atendidas menos o tempo que já esperei na triagem
+		var esperaConsulta = getEsperaConsulta(qtdPessoasConsulta, esperaTriagem);	
+		
+		var tempoTotal = (esperaRecepcao + esperaTriagem + esperaConsulta);
+		
+		divQtdPessoasRecepcao = document.getElementById('qtdPessoasRecepcao_' + i);
+		divQtdPessoasRecepcao.innerHTML += qtdPessoasRecepcao + " pacientes na espera";
+		
+		divQtdPessoasTriagem = document.getElementById('qtdPessoasTriagem_' + i);	
+		divQtdPessoasTriagem.innerHTML += qtdPessoasTriagem + " pacientes na espera";
+		
+		divQtdPessoasConsulta = document.getElementById('qtdPessoasConsulta_' + i);	
+		divQtdPessoasConsulta.innerHTML += qtdPessoasConsulta + " pacientes na espera";
+		
+		document.getElementById('tempoRecepcao_' + i).innerHTML = "Recepção: " + esperaRecepcao + " minutos";
+		document.getElementById('tempoTriagem_' + i).innerHTML = "Triagem: " + esperaTriagem + " minutos";
+		document.getElementById('tempoConsulta_' + i).innerHTML = "Consulta: " + esperaConsulta + " minutos";
 
-	document.getElementById('tempoTotal').innerHTML = "Tempo Total para o seu Atendimento: " + tempoTotal + " minutos";
+		document.getElementById('tempoTotal_' + i).innerHTML = "Tempo Total para o seu Atendimento: " + tempoTotal + " minutos";
+	
+	}
 	
 }
 
